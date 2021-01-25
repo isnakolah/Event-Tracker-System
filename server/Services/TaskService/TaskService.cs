@@ -32,28 +32,30 @@ namespace poneaChallenge.TaskService
         };
 
 
-        public int StartServers()
+        public ServiceResponse<int> StartServers()
         {
+            var serviceResponse = new ServiceResponse<int>();
             var rd = new Random();
-            var randNum = rd.Next(10, 20);
+            serviceResponse.Data = rd.Next(10, 20);
 
-            return randNum;
+            return serviceResponse;
         }
 
-        public int StopServers()
+        public ServiceResponse<int> StopServers()
         {
+            var serviceResponse = new ServiceResponse<int>();
             var rd = new Random();
-            var randNum = rd.Next(5, ReportServers());
+            serviceResponse.Data = rd.Next(5, ReportServers().Data);
 
-            return randNum;
+            return serviceResponse;
         }
-        public int ReportServers()
+        public ServiceResponse<int> ReportServers()
         {
-            var k = 20;
-            return k;
+            var serviceResponse = new ServiceResponse<int>();
+            return serviceResponse;
         }
 
-        public List<string> ReportLogs()
+        public ServiceResponse<List<string>> ReportLogs()
         {
             throw new NotImplementedException();
         }

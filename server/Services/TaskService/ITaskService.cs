@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using poneaChallenge.Models;
 
 namespace poneaChallenge.TaskService
 {
     public interface ITaskService
     {
-        int StartServers();
-        int StopServers();
-        int ReportServers();
-        List<string> ReportLogs();
+        ServiceResponse<int> StartServers();
+        ServiceResponse<int> StopServers();
+        ServiceResponse<int> ReportServers();
+        ServiceResponse<List<string>> ReportLogs();
     }
 }
