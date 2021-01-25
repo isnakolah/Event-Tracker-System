@@ -31,19 +31,31 @@ namespace poneaChallenge.TaskService
             }
         };
 
-        public List<string> Report()
+
+        public int StartServers()
         {
             var rd = new Random();
+            var randNum = rd.Next(10, 20);
+
+            return randNum;
         }
 
-        public string StartServers()
+        public int StopServers()
         {
-            throw new System.NotImplementedException();
+            var rd = new Random();
+            var randNum = rd.Next(5, ReportServers());
+
+            return randNum;
+        }
+        public int ReportServers()
+        {
+            var k = 20;
+            return k;
         }
 
-        public string StopServers()
+        public List<string> ReportLogs()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
