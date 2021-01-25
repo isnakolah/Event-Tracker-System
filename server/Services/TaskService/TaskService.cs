@@ -51,6 +51,7 @@ namespace poneaChallenge.TaskService
         }
         public ServiceResponse<int> ReportServers()
         {
+            // TODO Get the remaining running servers from the db
             var serviceResponse = new ServiceResponse<int>();
             return serviceResponse;
         }

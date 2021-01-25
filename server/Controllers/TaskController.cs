@@ -4,7 +4,7 @@ using poneaChallenge.TaskService;
 namespace poneaChallenge.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
@@ -14,7 +14,7 @@ namespace poneaChallenge.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetActions()
+        public IActionResult GetStartServers()
         {
             return Ok(_taskService.StartServers());
         }
