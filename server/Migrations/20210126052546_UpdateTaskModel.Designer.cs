@@ -8,7 +8,7 @@ using poneaChallenge.Models;
 
 namespace server.Migrations
 {
-    [DbContext(typeof(TaskContext))]
+    [DbContext(typeof(TaskIssuedContext))]
     [Migration("20210126052546_UpdateTaskModel")]
     partial class UpdateTaskModel
     {

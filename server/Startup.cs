@@ -29,7 +29,7 @@ namespace server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ITaskService, TaskService>();
-            services.AddDbContext<TaskContext>(
+            services.AddDbContext<TaskIssuedContext>(
                 options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
         }

@@ -1,14 +1,14 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using poneaChallenge.Models;
 
 namespace poneaChallenge.TaskService
 {
     public interface ITaskService
     {
-        ServiceResponse<int> StartServers();
+        Task<ServiceResponse<int>> StartServers();
         ServiceResponse<int> StopServers();
         ServiceResponse<int> ReportServers();
         ServiceResponse<List<string>> ReportLogs();
-        System.Threading.Tasks.Task StartTimingAsync();
     }
 }

@@ -1,28 +1,39 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using poneaChallenge.Models;
 
 namespace poneaChallenge.TaskService
 {
     public class TaskService : ITaskService
     {
-        private readonly static List<Task> tasks = new List<Task>
+
+        private readonly IOptions<MvcOptions> _mvcOptions;
+        private readonly TaskIssuedContext _context;
+        public TaskService(TaskIssuedContext context, IOptions<MvcOptions> mvcOptions)
         {
-            new Task
+            _context = context;
+            _mvcOptions = mvcOptions;
+        }
+        private readonly static List<TaskIssued> tasksIssued = new List<TaskIssued>
+        {
+            new TaskIssued
             {
                 Name = "START",
                 Interval = 30,
                 Precidence = 1,
                 Color = "black"
             },
-            new Task
+            new TaskIssued
             {
                 Name = "STOP",
                 Interval = 40,
                 Precidence = 2,
                 Color = "yellow"
             },
-            new Task
+            new TaskIssued
             {
                 Name = "REPORT",
                 Interval = 50,
@@ -30,24 +41,18 @@ namespace poneaChallenge.TaskService
                 Color = "pink",
             }
         };
-
-        private static List<Task> report = new List<Task>();
+        private static List<TaskIssued> report = new List<TaskIssued>();
 
         private static Random rd = new Random();
-        public ServiceResponse<int> StartServers()
+        public async Task<ServiceResponse<int>> StartServers()
         {
             var serviceResponse = new ServiceResponse<int>();
             var randNum = rd.Next(10, 20);
 
-            // Starting the db
-            // using (var db = new NpgsqlConnections())
-            // {
-            //     var newTask = tasks[1];
-            //     newTask.Running = randNum;
+            var task = tasksIssued[0];
+            task.StartedOrStopped = randNum;
 
-            //     db.Tasks.Add(newTask);
-            //     db.SaveChanges();
-            // }
+
             serviceResponse.Data = randNum;
 
             return serviceResponse;
@@ -73,19 +78,6 @@ namespace poneaChallenge.TaskService
         public ServiceResponse<List<string>> ReportLogs()
         {
             throw new NotImplementedException();
-        }
-
-        public async System.Threading.Tasks.Task StartTimingAsync()
-        {
-            do
-            {
-                StartServers();
-                await Task.Delay(30000);
-                StopServers();
-                await Task.Delay(30000);
-                ReportServers();
-                await Task.Delay(30000);
-            } while (true);
         }
     }
 }

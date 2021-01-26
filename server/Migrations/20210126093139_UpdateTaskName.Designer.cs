@@ -9,8 +9,8 @@ using poneaChallenge.Models;
 namespace server.Migrations
 {
     [DbContext(typeof(TaskIssuedContext))]
-    [Migration("20210126045703_initial")]
-    partial class initial
+    [Migration("20210126093139_UpdateTaskName")]
+    partial class UpdateTaskName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("poneaChallenge.Models.Task", b =>
+            modelBuilder.Entity("poneaChallenge.Models.TaskIssued", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -35,9 +35,12 @@ namespace server.Migrations
                     b.Property<int>("Precidence")
                         .HasColumnType("integer");
 
+                    b.Property<int>("StartedOrStopped")
+                        .HasColumnType("integer");
+
                     b.HasKey("Name");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("TasksIssued");
                 });
 #pragma warning restore 612, 618
         }
