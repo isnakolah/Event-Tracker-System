@@ -15,6 +15,11 @@ namespace poneaChallenge.Models
 
         public int Interval { get; set; }
 
+        public int Running { get; set; } = 0;
+
+        [DataType(DataType.Date)]
+        public DateTime CurrentTime { get; } = DateTime.UtcNow;
+
         internal static System.Threading.Tasks.Task Delay(int v)
         {
             throw new NotImplementedException();

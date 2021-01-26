@@ -27,20 +27,27 @@ namespace poneaChallenge.TaskService
                 Name = "REPORT",
                 Interval = 50,
                 Precidence = 3,
-                Color = "pink"
+                Color = "pink",
             }
         };
 
         private static List<Task> report = new List<Task>();
-
-        private static int runningServers = 0;
 
         private static Random rd = new Random();
         public ServiceResponse<int> StartServers()
         {
             var serviceResponse = new ServiceResponse<int>();
             var randNum = rd.Next(10, 20);
-            runningServers += randNum;
+
+            // Starting the db
+            // using (var db = new NpgsqlConnections())
+            // {
+            //     var newTask = tasks[1];
+            //     newTask.Running = randNum;
+
+            //     db.Tasks.Add(newTask);
+            //     db.SaveChanges();
+            // }
             serviceResponse.Data = randNum;
 
             return serviceResponse;
@@ -50,7 +57,7 @@ namespace poneaChallenge.TaskService
         {
             var serviceResponse = new ServiceResponse<int>();
             var randNum = rd.Next(5, ReportServers().Data);
-            runningServers += randNum;
+            // runningServers += randNum;
             serviceResponse.Data = randNum;
 
             return serviceResponse;
@@ -59,7 +66,7 @@ namespace poneaChallenge.TaskService
         {
             // TODO Get the remaining running servers from the db
             var serviceResponse = new ServiceResponse<int>();
-            serviceResponse.Data = runningServers;
+            // serviceResponse.Data = runningServers;
             return serviceResponse;
         }
 
