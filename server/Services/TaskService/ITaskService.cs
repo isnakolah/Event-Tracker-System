@@ -9,5 +9,6 @@ namespace poneaChallenge.TaskService
         ServiceResponse<int> StopServers();
         ServiceResponse<int> ReportServers();
         ServiceResponse<List<string>> ReportLogs();
+        System.Threading.Tasks.Task StartTimingAsync();
     }
 }

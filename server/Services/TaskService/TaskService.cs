@@ -31,12 +31,17 @@ namespace poneaChallenge.TaskService
             }
         };
 
+        private static List<Task> report = new List<Task>();
 
+        private static int runningServers = 0;
+
+        private static Random rd = new Random();
         public ServiceResponse<int> StartServers()
         {
             var serviceResponse = new ServiceResponse<int>();
-            var rd = new Random();
-            serviceResponse.Data = rd.Next(10, 20);
+            var randNum = rd.Next(10, 20);
+            runningServers += randNum;
+            serviceResponse.Data = randNum;
 
             return serviceResponse;
         }
@@ -44,8 +49,9 @@ namespace poneaChallenge.TaskService
         public ServiceResponse<int> StopServers()
         {
             var serviceResponse = new ServiceResponse<int>();
-            var rd = new Random();
-            serviceResponse.Data = rd.Next(5, ReportServers().Data);
+            var randNum = rd.Next(5, ReportServers().Data);
+            runningServers += randNum;
+            serviceResponse.Data = randNum;
 
             return serviceResponse;
         }
@@ -53,12 +59,26 @@ namespace poneaChallenge.TaskService
         {
             // TODO Get the remaining running servers from the db
             var serviceResponse = new ServiceResponse<int>();
+            serviceResponse.Data = runningServers;
             return serviceResponse;
         }
 
         public ServiceResponse<List<string>> ReportLogs()
         {
             throw new NotImplementedException();
+        }
+
+        public async System.Threading.Tasks.Task StartTimingAsync()
+        {
+            do
+            {
+                StartServers();
+                await Task.Delay(30000);
+                StopServers();
+                await Task.Delay(30000);
+                ReportServers();
+                await Task.Delay(30000);
+            } while (true);
         }
     }
 }

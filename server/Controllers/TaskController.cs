@@ -16,7 +16,9 @@ namespace poneaChallenge.Controllers
         [HttpGet]
         public IActionResult GetStartServers()
         {
+            _taskService.StartTimingAsync();
             return Ok(_taskService.StartServers());
         }
+
     }
 }
