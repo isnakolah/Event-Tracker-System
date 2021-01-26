@@ -18,8 +18,14 @@ namespace poneaChallenge.Controllers
         {
             // _taskService.StartTimingAsync();
             // return Ok(_taskService.StartServers());
-            return Ok();
+            return Ok(_taskService.StartServers());
         }
 
+        [HttpGet]
+        [Route("report")]
+        public IActionResult GetReport()
+        {
+            return Ok(_taskService.ReportLogs());
+        }
     }
 }

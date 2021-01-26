@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -44,16 +45,17 @@ namespace poneaChallenge.TaskService
         private static List<TaskIssued> report = new List<TaskIssued>();
 
         private static Random rd = new Random();
-        public async Task<ServiceResponse<int>> StartServers()
+        public async Task<ServiceResponse<TaskIssued>> StartServers()
         {
-            var serviceResponse = new ServiceResponse<int>();
+            var serviceResponse = new ServiceResponse<TaskIssued>();
             var randNum = rd.Next(10, 20);
 
             var task = tasksIssued[0];
             task.StartedOrStopped = randNum;
 
+            _context.TasksIssued.Add(task);
 
-            serviceResponse.Data = randNum;
+            serviceResponse.Data = task;
 
             return serviceResponse;
         }
@@ -75,9 +77,22 @@ namespace poneaChallenge.TaskService
             return serviceResponse;
         }
 
-        public ServiceResponse<List<string>> ReportLogs()
+        public ServiceResponse<List<TaskIssued>> ReportLogs()
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<TaskIssued>>
+            {
+
+                Data = (List<TaskIssued>)_context.TasksIssued.ToList().Select(x => new TaskIssued
+                {
+                    Id = x.Id,
+                    Color = x.Color,
+                    Name = x.Name,
+                    Precidence = x.Precidence,
+                    Interval = x.Interval,
+                    StartedOrStopped = x.StartedOrStopped,
+                })
+            };
+            return serviceResponse;
         }
     }
 }
