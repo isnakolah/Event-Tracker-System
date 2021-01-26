@@ -6,7 +6,7 @@ namespace poneaChallenge.TaskService
 {
     public interface ITaskService
     {
-        Task<ServiceResponse<TaskIssued>> StartServers();
+        Task<int> StartServers();
         ServiceResponse<int> StopServers();
         ServiceResponse<int> ReportServers();
         ServiceResponse<List<TaskIssued>> ReportLogs();

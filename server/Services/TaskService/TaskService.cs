@@ -45,19 +45,17 @@ namespace poneaChallenge.TaskService
         private static List<TaskIssued> report = new List<TaskIssued>();
 
         private static Random rd = new Random();
-        public async Task<ServiceResponse<TaskIssued>> StartServers()
+        public async Task<int> StartServers()
         {
-            var serviceResponse = new ServiceResponse<TaskIssued>();
+            // var serviceResponse = new ServiceResponse<TaskIssued>();
             var randNum = rd.Next(10, 20);
 
             var task = tasksIssued[0];
             task.StartedOrStopped = randNum;
 
-            _context.TasksIssued.Add(task);
+            await _context.TasksIssued.AddAsync(task);
 
-            serviceResponse.Data = task;
-
-            return serviceResponse;
+            return randNum;
         }
 
         public ServiceResponse<int> StopServers()
@@ -84,7 +82,6 @@ namespace poneaChallenge.TaskService
 
                 Data = (List<TaskIssued>)_context.TasksIssued.ToList().Select(x => new TaskIssued
                 {
-                    Id = x.Id,
                     Color = x.Color,
                     Name = x.Name,
                     Precidence = x.Precidence,

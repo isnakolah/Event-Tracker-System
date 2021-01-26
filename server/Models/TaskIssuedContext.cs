@@ -9,5 +9,6 @@ namespace poneaChallenge.Models
         }
 
         public DbSet<TaskIssued> TasksIssued { get; set; }
+        public DbSet<Messages> Messages { get; set; }
     }
 }
