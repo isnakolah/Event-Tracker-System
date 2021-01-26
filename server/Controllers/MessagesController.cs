@@ -20,5 +20,7 @@ namespace poneaChallenge.Controllers
         {
             return Ok(_messageService.StartSomeServers());
         }
+
+        // [HttpGet]
     }
 }
